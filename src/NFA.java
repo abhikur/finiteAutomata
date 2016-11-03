@@ -2,7 +2,9 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class NFA implements FiniteMachine {
 
@@ -25,11 +27,11 @@ public class NFA implements FiniteMachine {
     public Boolean validateThroughDelta(String inputStr) {
         Boolean isValid = false;
         String[] testChars = inputStr.split("");
-        List<State> stateSequence = new ArrayList<>();
+        Set<State> stateSequence = new HashSet<>();
         stateSequence.add(new State(startState));
-        for (String testChar : testChars) {
+        for (String testChar : testChars) {                // Todo: need to check if testAlpha present in alphabet set
             if(!testChar.equals("")) {
-                List<State> newStateSequence = new ArrayList<>();
+                Set<State> newStateSequence = new HashSet<>();
                 for (State state : stateSequence) {
                     newStateSequence.addAll(getNextStates(state.toString(),testChar));
                 }
